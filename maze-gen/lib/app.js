@@ -65,7 +65,8 @@ var App = React.createClass({
         });
     },
 
-    generate() {
+    generate(event) {
+        event.preventDefault();
         this.refs.maze.recreateMaze();
         this.extendState({
             stagedMazeConfig: this.state.stagedMazeConfig,
@@ -76,8 +77,8 @@ var App = React.createClass({
     render() {
         var stagedConfig = this.state.stagedMazeConfig;
         var currentConfig = this.state.currentMazeConfig;
-        var canvasWidth = currentConfig.width * currentConfig.cellSize;
-        var canvasHeight = currentConfig.height * currentConfig.cellSize;
+        var canvasWidth = (currentConfig.width * currentConfig.cellSize) + 1;
+        var canvasHeight = (currentConfig.height * currentConfig.cellSize) + 1;
 
         return (
             <div className="app">
@@ -92,24 +93,24 @@ var App = React.createClass({
                         }}
                     ref="maze"/>
                 </div>
-                <section className="maze-config">
+                <form className="maze-config" onSubmit={this.generate}>
                     <div className="generate-button-container">
-                        <button onClick={this.generate}>Generate</button>
+                        <button>Generate</button>
                     </div>
 
                     <div>
                         <label>Width:</label>
-                        <input type="number" min="10" max="1000" value={stagedConfig.width} onChange={this.setWidth}/>
+                        <input type="number" min="2" max="1000" value={stagedConfig.width} onChange={this.setWidth}/>
                     </div>
 
                     <div>
                         <label>Height:</label>
-                        <input type="number" min="10" max="1000" value={stagedConfig.height} onChange={this.setHeight}/>
+                        <input type="number" min="2" max="1000" value={stagedConfig.height} onChange={this.setHeight}/>
                     </div>
 
                     <div>
                         <label>Cell Size:</label>
-                        <input type="number" min="3" max="1000" value={stagedConfig.cellSize} onChange={this.setCellSize}/>
+                        <input type="number" min="1" max="1000" value={stagedConfig.cellSize} onChange={this.setCellSize}/>
                     </div>
 
                     <div>
@@ -121,7 +122,7 @@ var App = React.createClass({
                         <label onClick={this.toggleLoops}>Enable Loops:</label>
                         <input type="checkbox" checked={!!stagedConfig.enableLoops} onChange={this.toggleLoops}/>
                     </div>
-                </section>
+                </form>
             </div>
         );
     }

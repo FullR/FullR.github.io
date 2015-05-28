@@ -9,38 +9,65 @@ function Maze(nodes, _config) {
 }
 
 _.extend(Maze.prototype, {
-    toCanvas: function(width, height) {
+    toCanvas: function(width, height, canvas, context) {
         var nodes = this.nodes;
-        var canvas = document.createElement("canvas");
-        var context = canvas.getContext("2d");
-        var nodeWidth = width/this._config.width;
-        var nodeHeight = height/this._config.height;
+        var nodeWidth = (width - 1) / this._config.width;
+        var nodeHeight = (height - 1) / this._config.height;
+
+        if(!canvas) {
+            canvas = document.createElement("canvas");
+        }
+        if(!context) {
+            context = canvas.getContext("2d");
+        }
 
         canvas.width = width;
         canvas.height = height;
+        context.lineWidth = 1;
+        context.lineCap = "butt";
         context.strokeStyle = "#000000";
-    
+        context.fillStyle = "#FFFFFF";
+        context.translate(0.5, 0.5);
         context.beginPath();
         nodes.forEach(function(node) {
-            var parent = node.parent;
-            if(!parent) return;
-            // don't draw exit/entrance
-            // TODO: move this logic into the maze generation
-            if(vecEqual([node, parent], this._config.entrance) || 
-               vecEqual([node, parent], this._config.exit)) {
-                return;
-            }
-            context.moveTo(node.parent.x * nodeWidth, node.parent.y * nodeHeight);
-            context.lineTo(node.x * nodeWidth, node.y * nodeHeight);
+            node.children.forEach((child) => {
+                var cx = 0;
+                var cy = 0;
+                // don't draw exit/entrance
+                // TODO: move this logic into the maze generation
+                if(vecEqual([node, child], this._config.entrance) || 
+                    vecEqual([node, child], this._config.exit)) {
+                    return;
+                }
+                if(node.x > child.x) {
+                    cx = -0.5;
+                }
+                else if(node.x < child.x) {
+                    cx = 0.5;
+                }
+
+                if(node.y > child.y) {
+                    cy = -0.5;
+                }
+                else if(node.y < child.y) {
+                    cy = 0.5;
+                }
+
+                context.moveTo((node.x * nodeWidth) - cx, (node.y * nodeHeight) - cy);
+                context.lineTo((child.x * nodeWidth) + cx, (child.y * nodeHeight) + cy);
+            });
         }, this);
+        
         context.stroke();
         return canvas;
     }
 });
 
 function maze(_config) {
+    console.time("Generated maze");
     return cw(mazeWorker).data(_config).then((nodes) => {
         var maze = new Maze(nodes, _config);
+        console.timeEnd("Generated maze");
         return maze;
     });
 

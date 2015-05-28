@@ -33,19 +33,25 @@ function mazeWorker(config, callback) {
     addWalls();
     openNodes = getOpenNodes();
     while(openNodes.length) {
-        openNodes.forEach(function() {
-            child = sample(openNodes);
-            for(i = 0; i < maxBranchLength && child && child.neighbors.some(notConnected); i++) {
+        child = sample(openNodes);
+        while(child && !child.neighbors.some(notConnected)) {
+            child = child.parent;
+        }
+        if(child) {
+            for(i = 0; i < maxBranchLength && child.neighbors.some(notConnected); i++) {
                 child = connectNode(child);
             }
-        });
-        openNodes = getOpenNodes();
+        }
+        else {
+            openNodes = getOpenNodes();
+            continue;
+        }
     }
 
     // remove unnecessary data before sending data back to main thread
     callback(nodes.map((node) => {
-        delete node.children;
         delete node.neighbors;
+        delete node.parent;
         return node;
     }));
 
@@ -57,8 +63,6 @@ function mazeWorker(config, callback) {
     function addWalls() {
         var x;
         var y;
-        var xCount = width + 1;
-        var yCount = height + 1;
         
         for(x = 0; x < width; x++) {
             connect(getNode(x, 0), getNode(x + 1, 0));
@@ -105,8 +109,8 @@ function mazeWorker(config, callback) {
     }
     
     function connect(parent, child) {
-        parent.children.push([child.x, child.y]);
-        child.parent = {x: parent.x, y: parent.y};
+        parent.children.push({x: child.x, y: child.y});
+        child.parent = parent;
         children.push(child);
     }
 
