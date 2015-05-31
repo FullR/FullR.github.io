@@ -12,7 +12,7 @@ const defaultMazeConfig = {
     cellSize: 20
 };
 
-var App = React.createClass({
+const App = React.createClass({
     mixins: [extendStateMixin],
 
     getInitialState() {
@@ -24,7 +24,7 @@ var App = React.createClass({
 
     extendStagedConfig(...sources) {
         this.extendState({
-            stagedMazeConfig: _.extend({}, _.clone(this.state.stagedMazeConfig), ...sources),
+            stagedMazeConfig: _.extend({}, this.state.stagedMazeConfig, ...sources),
             currentMazeConfig: this.state.currentMazeConfig
         });
     },
@@ -75,10 +75,10 @@ var App = React.createClass({
     },
 
     render() {
-        var stagedConfig = this.state.stagedMazeConfig;
-        var currentConfig = this.state.currentMazeConfig;
-        var canvasWidth = (currentConfig.width * currentConfig.cellSize) + 1;
-        var canvasHeight = (currentConfig.height * currentConfig.cellSize) + 1;
+        const currentConfig = this.state.currentMazeConfig;
+        const canvasWidth = (currentConfig.width * currentConfig.cellSize) + 1;
+        const canvasHeight = (currentConfig.height * currentConfig.cellSize) + 1;
+        const {width, height, cellSize, maxBranchLength, enableLoops} = this.state.stagedMazeConfig;
 
         return (
             <div className="app">
@@ -100,27 +100,27 @@ var App = React.createClass({
 
                     <div>
                         <label>Width:</label>
-                        <input type="number" min="2" max="1000" value={stagedConfig.width} onChange={this.setWidth}/>
+                        <input type="number" min="2" max="1000" value={width} onChange={this.setWidth}/>
                     </div>
 
                     <div>
                         <label>Height:</label>
-                        <input type="number" min="2" max="1000" value={stagedConfig.height} onChange={this.setHeight}/>
+                        <input type="number" min="2" max="1000" value={height} onChange={this.setHeight}/>
                     </div>
 
                     <div>
                         <label>Cell Size:</label>
-                        <input type="number" min="1" max="1000" value={stagedConfig.cellSize} onChange={this.setCellSize}/>
+                        <input type="number" min="1" max="1000" value={cellSize} onChange={this.setCellSize}/>
                     </div>
 
                     <div>
                         <label>Max Branch Length:</label>
-                        <input type="number" min="0" max="1000" value={stagedConfig.maxBranchLength} onChange={this.setMaxBranchLength}/>
+                        <input type="number" min="0" max="1000" value={maxBranchLength} onChange={this.setMaxBranchLength}/>
                     </div>
 
                     <div>
                         <label onClick={this.toggleLoops}>Enable Loops:</label>
-                        <input type="checkbox" checked={!!stagedConfig.enableLoops} onChange={this.toggleLoops}/>
+                        <input type="checkbox" checked={!!enableLoops} onChange={this.toggleLoops}/>
                     </div>
                 </form>
             </div>
@@ -128,7 +128,7 @@ var App = React.createClass({
     }
 });
 
-var outlet = document.getElementById("outlet");
+const outlet = document.getElementById("outlet");
 function draw() {
     React.render(<App/>, outlet);
 }

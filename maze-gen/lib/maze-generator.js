@@ -1,6 +1,7 @@
 import _ from "lodash";
 import cw from "catiline";
 import mazeWorker from "./maze-worker";
+
 export default maze;
 
 function Maze(nodes, _config) {
@@ -9,36 +10,35 @@ function Maze(nodes, _config) {
 }
 
 _.extend(Maze.prototype, {
-    toCanvas(width, height, canvas, context) {
-        var nodes = this.nodes;
-        var nodeWidth = (width - 1) / this._config.width;
-        var nodeHeight = (height - 1) / this._config.height;
+    toCanvas(canvasWidth, canvasHeight, canvas = document.createElement("canvas"), context = canvas.getContext("2d")) {
 
-        if(!canvas) {
-            canvas = document.createElement("canvas");
-        }
-        if(!context) {
-            context = canvas.getContext("2d");
-        }
+        const {width, height, entrance, exit} = this._config;
+        const nodes = this.nodes;
+        const nodeWidth = (canvasWidth - 1) / width;
+        const nodeHeight = (canvasHeight - 1) / height;
 
-        canvas.width = width;
-        canvas.height = height;
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
+
         context.lineWidth = 1;
         context.lineCap = "butt";
         context.strokeStyle = "#000000";
         context.fillStyle = "#FFFFFF";
         context.translate(0.5, 0.5);
         context.beginPath();
-        nodes.forEach(function(node) {
+
+        nodes.forEach((node) => {
             node.children.forEach((child) => {
-                var cx = 0;
-                var cy = 0;
+                let cx = 0;
+                let cy = 0;
                 // don't draw exit/entrance
                 // TODO: move this logic into the maze generation
-                if(vecEqual([node, child], this._config.entrance) || 
-                    vecEqual([node, child], this._config.exit)) {
+                if(vecEqual([node, child], entrance) || 
+                    vecEqual([node, child], exit)) {
                     return;
                 }
+
+                // minor pixel offset so lines connect nicely
                 if(node.x > child.x) {
                     cx = -0.5;
                 }
@@ -56,7 +56,7 @@ _.extend(Maze.prototype, {
                 context.moveTo((node.x * nodeWidth) - cx, (node.y * nodeHeight) - cy);
                 context.lineTo((child.x * nodeWidth) + cx, (child.y * nodeHeight) + cy);
             });
-        }, this);
+        });
         
         context.stroke();
         return canvas;
@@ -66,9 +66,8 @@ _.extend(Maze.prototype, {
 function maze(_config) {
     console.time("Generated maze");
     return cw(mazeWorker).data(_config).then((nodes) => {
-        var maze = new Maze(nodes, _config);
         console.timeEnd("Generated maze");
-        return maze;
+        return new Maze(nodes, _config);
     });
 
 }
@@ -77,11 +76,7 @@ function pointsEqual(p1, p2) {
     return p1.x === p2.x && p1.y === p2.y;
 }
 
-function vecEqual(v1, v2) {
-    var p1 = v1[0];
-    var p2 = v1[1];
-    var p3 = v2[0];
-    var p4 = v2[1];
+function vecEqual([p1, p2], [p3, p4]) {
     return (pointsEqual(p1, p3) && pointsEqual(p2, p4)) ||
         (pointsEqual(p1, p4) && pointsEqual(p2, p3));
 }

@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "devDependencies": {
     "babelify": "^6.1.2",
+    "browserify": "^10.2.3",
     "node-static": "^0.7.6",
     "watchify": "^3.2.1"
   },
