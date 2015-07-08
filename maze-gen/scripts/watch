@@ -3,5 +3,5 @@
 scripts/build
 
 scripts/serve &
-watchify -v --debug lib/app.js -t babelify -o bin/app.js &
-sass --watch lib/styles/app.scss:bin/app.css
+node node_modules/watchify/bin/cmd.js -v --debug lib/app.js -t babelify -o bin/app.js &
+sass --trace --watch lib/styles/app.scss:bin/app.css

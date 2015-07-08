@@ -1,26 +1,24 @@
 export default mazeWorker;
 
 // This function is run in a worker thread
-function mazeWorker(config, callback) {
-    var {width, height, maxBranchLength, enableLoops} = config;
-    var branchLength;
-    var openNodes;
-    var i;
-    var child;
-    var children = [];
+function mazeWorker({width = 50, height = 50, maxBranchLength = 0, enableLoops = false}, callback) {
+    const children = [];
+    let i;
+    let branchLength;
+    let openNodes;
+    let child;
 
-    var grid = range(0, height + 1).map(function(y) {
-        return range(0, width + 1).map(function(x) {
+    const grid = range(0, height + 1).map((y) => {
+        return range(0, width + 1).map((x) => {
             return {
-                x: x,
-                y: y,
+                x, y,
                 children: [],
                 parent: null
             };
-        });
+        })
     });
 
-    var nodes = grid.reduce((nodes, row) => nodes.concat(row), []);
+    const nodes = grid.reduce((nodes, row) => nodes.concat(row), []);
 
     if(typeof maxBranchLength !== "number" || maxBranchLength <= 0) {
         maxBranchLength = Infinity;
@@ -48,21 +46,19 @@ function mazeWorker(config, callback) {
         }
     }
 
-    // remove unnecessary data before sending data back to main thread
-    callback(nodes.map((node) => {
-        delete node.neighbors;
-        delete node.parent;
-        return node;
+    // Only send required data back to main thread
+    callback(nodes.map(({x, y, children}) => {
+        return {x, y, children};
     }));
 
-    // fns
+    // Functions
     function getNode(x, y) {
         return grid[y] ? grid[y][x] : null;
     }
 
     function addWalls() {
-        var x;
-        var y;
+        let x;
+        let y;
         
         for(x = 0; x < width; x++) {
             connect(getNode(x, 0), getNode(x + 1, 0));
@@ -76,7 +72,7 @@ function mazeWorker(config, callback) {
     }
 
     function range(a, b) {
-        var r = [];
+        let r = [];
         while(a < b) {
             r.push(a);
             a++;
@@ -88,9 +84,7 @@ function mazeWorker(config, callback) {
         return arr[Math.floor(arr.length * Math.random())];
     }
 
-    function getNeighbors(node) {
-        var x = node.x;
-        var y = node.y;
+    function getNeighbors({x, y}) {
         return [
             getNode(x, y-1),
             getNode(x, y+1),
@@ -102,8 +96,7 @@ function mazeWorker(config, callback) {
     }
 
     function connectNode(node) {
-        var validChildren = node.neighbors.filter(notConnected);
-        var child = sample(validChildren);
+        const child = sample(node.neighbors.filter(notConnected));
         connect(node, child);
         return child;
     }
@@ -115,10 +108,8 @@ function mazeWorker(config, callback) {
     }
 
     function getOpenNodes() {
-        var _nodes = enableLoops ? nodes : children;
-        return _nodes.filter(function(node) {
-            return node.neighbors.some(notConnected);
-        });
+        const _nodes = enableLoops ? nodes : children;
+        return _nodes.filter((node) => node.neighbors.some(notConnected));
     }
 
     function notConnected(node) {
