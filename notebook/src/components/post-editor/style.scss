@@ -1,0 +1,25 @@
+@import "../../style/colors.scss";
+
+.Post-editor {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  &__title-input {
+    height: 30px;
+    background: inherit;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid $BORDER;
+  }
+
+  &__content-input {
+    min-height: 0;
+    margin-top: 20px;
+    flex: 1 1 auto;
+    background: inherit;
+    border: none;
+    outline: none;
+    resize: none;
+  }
+}

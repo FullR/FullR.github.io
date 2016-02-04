@@ -1,0 +1,61 @@
+@import "../../style/colors.scss";
+
+.Editor-stack {
+  width: 100%;
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 18px;
+    height: 40px;
+  }
+
+  &__content {
+    display: flex;
+    background: $SECONDARY;
+    padding: 20px;
+    font-size: 16px;
+  }
+
+  &__footer {
+    height: 40px;
+  }
+
+  &__post-editor {
+    flex: 1;
+    background: inherit;
+    border: none;
+    outline: none;
+  }
+
+  &__hamburger {
+    font-size: 20px;
+  }
+
+  &__header-button-group {
+    width: 100px;
+    height: 25px;
+    align-self: center;
+  }
+
+  &__edit-button {
+    width: 50%;
+    border-right: 1px solid $BORDER;
+  }
+
+  &__preview-button {
+    width: 50%;
+  }
+
+  &__rendered-markdown {
+    a {
+      color: #6dffe4;
+    }
+
+    a::visited {
+      color: #429b89;
+    }
+  }
+}

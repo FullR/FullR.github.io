@@ -1,0 +1,12 @@
+.X-button {
+  display: inline-block;
+  height: 25px;
+  width: 25px;
+  font-size: 30px;
+  line-height: 25px;
+  color: rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    color: rgba(255, 0, 0, 0.6);
+  }
+}

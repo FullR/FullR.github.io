@@ -1,0 +1,25 @@
+@import "../../style/colors.scss";
+
+.Stack-content {
+  display: flex;
+  flex-direction: column;
+  height: 0;
+  flex-grow: 1;
+  overflow: auto;
+  width: 100%;
+}
+
+.Stack-content::-webkit-scrollbar-track {
+  display: none;
+}
+
+.Stack-content::-webkit-scrollbar {
+	width: 8px;
+	background-color: $PRIMARY;
+  background: rgba(0, 0, 0, 0);
+}
+
+.Stack-content::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	background-color: $BORDER;
+}

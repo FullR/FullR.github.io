@@ -1,0 +1,31 @@
+@import "../../style/colors.scss";
+
+.Notebook-list-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 15px 10px 15px;
+  min-height: 15px;
+  font-size: 14px;
+  color: $TEXT_PRIMARY;
+  cursor: pointer;
+
+  &:hover,
+  &--selected {
+    color: $TEXT_SECONDARY;
+    background: $SECONDARY;
+  }
+
+  &__icon {
+    margin-right: 10px;
+  }
+
+  &__name {
+    flex: 1 1 auto;
+  }
+
+  &__count {
+    width: 20px;
+  }
+}

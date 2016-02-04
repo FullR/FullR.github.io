@@ -1,0 +1,14 @@
+@import "../../style/colors.scss";
+
+.Notebook-stack {
+  width: 100%;
+  border-right: 1px solid $BORDER;
+
+  &__footer {
+    height: 40px;
+  }
+
+  &__create-button {
+    margin: 0 0 10px 10px;
+  }
+}

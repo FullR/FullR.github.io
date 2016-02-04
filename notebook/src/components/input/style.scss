@@ -1,0 +1,33 @@
+@import "../../style/colors.scss";
+
+.Input {
+  display: flex;
+  flex-direction: row;
+  height: 25px;
+  border-radius: 5px;
+  border: 1px solid $BORDER;
+  outline: none;
+
+  input {
+    width: 100%;
+    height: 100%;
+    background: inherit;
+  }
+
+  &__icon {
+    text-align: center;
+    line-height: 22px;
+    width: 30px;
+    font-size: 15px;
+  }
+}
+
+.Input:hover  {
+  color: #FFF;
+}
+
+
+.Input__input {
+  border: none;
+  outline: none;
+}
