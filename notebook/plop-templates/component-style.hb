@@ -1,3 +1,0 @@
-.{{dashcapCase name}} {
-
-}
