@@ -1,4 +1,0 @@
-#!/bin/bash
-
-node node_modules/browserify/bin/cmd lib/app.js -t babelify -o bin/app.js &
-sass lib/styles/app.scss:bin/app.css
