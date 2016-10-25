@@ -1,0 +1,107 @@
+{
+  "basics": {
+    "name": "James Meyers",
+    "label": "Web Developer",
+    "picture": "",
+    "email": "james.meyers919@gmail.com",
+    "phone": "(541) 217-7409",
+    "website": "http://fullr.github.io/",
+    "summary": "Full stack web developer with a focus on responsive cross-platform front-end solutions.",
+    "location": {
+      "address": "888 Vermont Ave.",
+      "postalCode": "OR 97459",
+      "city": "North Bend",
+      "countryCode": "US",
+      "region": "Oregon"
+    },
+    "profiles": [
+      {
+        "network": "Stackoverflow",
+        "username": "SimpleJ",
+        "url": "http://stackoverflow.com/users/2130365/simplej"
+      },
+      {
+        "network": "Github",
+        "username": "Fullr",
+        "url": "https://github.com/FullR"
+      },
+      {
+        "network": "npm",
+        "username": "SimpleJ",
+        "url": "https://www.npmjs.com/~simplej"
+      }
+    ]
+  },
+  "work": [
+    {
+      "company": "The Critical Thinking Co.",
+      "position": "Front-end Web Developer",
+      "website": "http://criticalthinking.com/",
+      "startDate": "2013-06-01",
+      "endDate": "2016-11-01",
+      "summary": "My responsibilities included designing, implementing, testing, and releasing educational software on multiple platforms (Windows, OSX, iOS, Android, Web) using web technologies."
+    },
+    {
+      "company": "Oregon Institute of Marine Biology",
+      "position": "Embedded Developer",
+      "website": "http://oimb.uoregon.edu/",
+      "startDate": "2014-01-01",
+      "endDate": "2016-10-01",
+      "summary": "Designed and developed software for controlling industrial salt water pumps."
+    },
+    {
+      "company": "Advanced JavaScript Instructor",
+      "position": "Southwestern Oregon Community College",
+      "website": "http://www.socc.edu/",
+      "startDate": "2015-09-15",
+      "endDate": "2015-12-15",
+      "summary": "In this position I was tasked with teaching advanced JavaScript topics to a small class of college students."
+    },
+    {
+      "company": "Embedded Developer (Internship)",
+      "position": "Coos Watershed Association",
+      "website": "http://www.socc.edu/",
+      "startDate": "2012-06-01",
+      "endDate": "2012-09-01",
+      "summary": "Wrote embedded data logging nodes for collecting and transmitting salmon migratory patterns."
+    }
+  ],
+  "education": [{
+    "institution": "Southwestern Oregon Community College",
+    "area": "Computer Science",
+    "studyType": "Associate",
+    "startDate": "2011-09-27",
+    "endDate": "2013-06-01"
+  }],
+  "skills": [
+    {
+      "name": "Front-end Web Development",
+      "level": "Master",
+      "keywords": [
+        "Javascript",
+        "CSS3",
+        "HTML",
+        "Frameworks (React, Angular, Vue, Backbone)",
+        "Tooling (Webpack, Babel, Phonegap, Electron)"
+      ]
+    },
+    {
+      "name": "Back-end Web Development",
+      "level": "Intermediate",
+      "keywords": [
+        "Node.js",
+        "C",
+        "MySQL/PostgreSQL",
+        "Linux/Unix Command Line",
+      ]
+    },
+    {
+      "name": "Source Control",
+      "level": "Intermediate",
+      "keywords": [
+        "Git",
+        "SVN"
+      ]
+    }
+  ]
+}
