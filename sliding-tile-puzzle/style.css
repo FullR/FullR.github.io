@@ -1,0 +1,38 @@
+#puzzle-container {
+  padding-top: 100px;
+  width: 100%;
+  text-align: center;
+}
+
+#content {
+  width: 600px;
+  margin: 0 auto;
+}
+
+.puzzle {
+  display: inline-block;
+}
+
+.option-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.option-row input {
+  flex-basis: 100%;
+}
+
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-top: 100px;
+}
+
+#submit-button {
+  margin-top: 20px;
+}
+
+label {
+  display: inline-block;
+  min-width: 200px;
+}
